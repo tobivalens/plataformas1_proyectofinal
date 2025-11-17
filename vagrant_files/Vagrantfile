@@ -1,0 +1,113 @@
+# -- mode: ruby --
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  # --- Servidor DHCP_v4 ---
+  config.vm.define "dhcp" do |dhcp|
+    dhcp.vm.box = "bento/ubuntu-24.04"
+    dhcp.vm.hostname = "dhcp-proyecto"
+    dhcp.vm.network "public_network",
+      ip: "192.168.2.100",
+      use_dhcp_assigned_default_route: false
+    dhcp.vm.provider "virtualbox" do |vb|
+      vb.customize ["modifyvm", :id, "--memory", "512", "--cpus", "1", "--name", "dhcp-proyecto"]
+    end
+  end
+
+  # --- Servidor DHCPv6 ---
+  config.vm.define "dhcp6" do |dhcp6|
+    dhcp6.vm.box = "bento/ubuntu-24.04"
+    dhcp6.vm.hostname = "dhcp6-proyecto"
+    dhcp6.vm.network "public_network",
+      ip: "192.168.2.101",
+      use_dhcp_assigned_default_route: false
+    dhcp6.vm.provider "virtualbox" do |vb|
+      vb.customize ["modifyvm", :id, "--memory", "512", "--cpus", "1", "--name", "dhcp6-proyecto"]
+    end
+  end
+
+  # --- Servidor DNS1 ---
+  config.vm.define "dns1" do |dns1|
+    dns1.vm.box = "bento/ubuntu-24.04"
+    dns1.vm.hostname = "dns1-proyecto"
+    dns1.vm.network "public_network",
+      ip: "192.168.2.102",
+      use_dhcp_assigned_default_route: false
+    dns1.vm.provider "virtualbox" do |vb|
+      vb.customize ["modifyvm", :id, "--memory", "512", "--cpus", "1", "--name", "dns1-proyecto"]
+    end
+  end
+
+  # --- Servidor DNS2 ---
+  config.vm.define "dns2" do |dns2|
+    dns2.vm.box = "bento/ubuntu-24.04"
+    dns2.vm.hostname = "dns2-proyecto"
+    dns2.vm.network "public_network",
+      ip: "192.168.2.103",
+      use_dhcp_assigned_default_route: false
+    dns2.vm.provider "virtualbox" do |vb|
+      vb.customize ["modifyvm", :id, "--memory", "512", "--cpus", "1", "--name", "dns2-proyecto"]
+    end
+  end
+
+  # --- Servidor DNS64 ---
+  config.vm.define "dns64" do |dns64|
+    dns64.vm.box = "bento/ubuntu-24.04"
+    dns64.vm.hostname = "dns64-proyecto"
+    dns64.vm.network "public_network",
+      ip: "192.168.2.105",
+      use_dhcp_assigned_default_route: false
+    dns64.vm.provider "virtualbox" do |vb|
+      vb.customize ["modifyvm", :id, "--memory", "512", "--cpus", "1", "--name", "dns64-proyecto"]
+    end
+  end
+
+  # --- Servidor SMTP ---
+  config.vm.define "smtp" do |smtp|
+    smtp.vm.box = "bento/ubuntu-24.04"
+    smtp.vm.hostname = "smtp-proyecto"
+    smtp.vm.network "public_network",
+      ip: "192.168.2.106",
+      use_dhcp_assigned_default_route: false
+    smtp.vm.provider "virtualbox" do |vb|
+      vb.customize ["modifyvm", :id, "--memory", "512", "--cpus", "1", "--name", "smtp-proyecto"]
+    end
+  end
+
+  # --- Servidor SMTP 1---
+  config.vm.define "smtp1" do |smtp1|
+    smtp1.vm.box = "bento/ubuntu-24.04"
+    smtp1.vm.hostname = "smtp1-proyecto"
+    smtp1.vm.network "public_network",
+      ip: "192.168.2.106",
+      use_dhcp_assigned_default_route: false
+    smtp1.vm.provider "virtualbox" do |vb|
+      vb.customize ["modifyvm", :id, "--memory", "512", "--cpus", "1", "--name", "smtp1-proyecto"]
+    end
+  end
+
+  # --- Servidor NTP ---
+  config.vm.define "ntp" do |ntp|
+    ntp.vm.box = "bento/ubuntu-24.04"
+    ntp.vm.hostname = "ntp-proyecto"
+    ntp.vm.network "public_network",
+      ip: "192.168.2.108",
+      use_dhcp_assigned_default_route: false
+    ntp.vm.provider "virtualbox" do |vb|
+      vb.customize ["modifyvm", :id, "--memory", "512", "--cpus", "1", "--name", "ntp-proyecto"]
+    end
+  end
+
+    # --- Servidor Monitoreo ---
+  config.vm.define "monitoreo" do |monitoreo|
+    monitoreo.vm.box = "bento/ubuntu-24.04"
+    monitoreo.vm.hostname = "monitoreo-proyecto"
+    monitoreo.vm.network "public_network",
+      ip: "192.168.2.110",
+      use_dhcp_assigned_default_route: false
+    monitoreo.vm.provider "virtualbox" do |vb|
+      vb.customize ["modifyvm", :id, "--memory", "512", "--cpus", "1", "--name", "monitoreo-proyecto"]
+    end
+  end
+end
