@@ -1,0 +1,20 @@
+$TTL 3600
+@ IN SOA ns1.proyecto.tel. admin.proyecto.tel. (
+    2025110901 ; serial
+    86400
+    7200
+    604800
+    3600
+)
+    IN NS ns1.proyecto.tel.
+
+; PTRs para hosts en 2001:db8:acad:2::/64
+0.0.1.0.0.0.0.0.0.0.0.0.0.0.0.0 IN PTR dhcp4.proyecto.tel.
+1.0.1.0.0.0.0.0.0.0.0.0.0.0.0.0 IN PTR dhcp6.proyecto.tel.
+2.0.1.0.0.0.0.0.0.0.0.0.0.0.0.0 IN PTR ns1.proyecto.tel.
+3.0.1.0.0.0.0.0.0.0.0.0.0.0.0.0 IN PTR ns2.proyecto.tel.
+5.0.1.0.0.0.0.0.0.0.0.0.0.0.0.0 IN PTR dns64.proyecto.tel.
+6.0.1.0.0.0.0.0.0.0.0.0.0.0.0.0 IN PTR smtp1.proyecto.tel.
+8.0.1.0.0.0.0.0.0.0.0.0.0.0.0.0 IN PTR ntp.proyecto.tel.
+9.0.1.0.0.0.0.0.0.0.0.0.0.0.0.0 IN PTR nas.proyecto.tel.
+0.1.1.0.0.0.0.0.0.0.0.0.0.0.0.0 IN PTR mon.proyecto.tel.

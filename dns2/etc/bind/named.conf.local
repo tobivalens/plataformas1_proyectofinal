@@ -1,0 +1,19 @@
+include "/etc/bind/keys/tsig-ns.key";
+
+zone "proyecto.tel" {
+    type slave;
+    file "/var/cache/bind/db.proyecto.tel";
+    masters { 192.168.2.102 key "tsig-ns."; };
+};
+
+zone "2.168.192.in-addr.arpa" {
+    type slave;
+    file "/var/cache/bind/db.192.168.2";
+    masters { 192.168.2.102 key "tsig-ns."; };
+};
+
+zone "2.0.0.0.d.a.c.a.8.b.d.0.1.0.0.2.ip6.arpa" {
+    type slave;
+    file "/var/cache/bind/db.2001db8acad2.rev";
+    masters { 192.168.2.102 key "tsig-ns."; };
+};

@@ -1,0 +1,27 @@
+acl "trusted-hosts" {
+    localhost;
+    localnets;
+    192.168.2.0/24;
+    192.168.10.0/24;
+    2001:db8:acad:2::/64;
+    2001:db8:acad:10::/64;
+};
+
+options {
+    directory "/var/cache/bind";
+
+    # Slave acting as authoritative secondary (no recursion for clients).
+    recursion no;
+    allow-recursion { none; };
+
+    dnssec-validation auto;
+
+    listen-on port 53 { 127.0.0.1; 192.168.2.103; };
+    listen-on-v6 port 53 { ::1; 2001:db8:acad:2::103; };
+
+    forwarders { 8.8.8.8; 8.8.4.4; };   # opcional
+    allow-query { localhost; 192.168.2.0/24; 2001:db8:acad:2::/64; 192.168.10.0/24; 2001:db8:acad:10::/64; };
+
+    auth-nxdomain no;
+    listen-on-v6 { any; };
+};

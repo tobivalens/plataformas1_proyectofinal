@@ -1,0 +1,44 @@
+# ==== Identidad del servidor ====
+myhostname = smtp1.proyecto.tel
+mydomain = proyecto.tel
+myorigin = $mydomain
+
+# ==== Interfaces de red ====
+inet_interfaces = all
+inet_protocols = all
+
+# ==== Destinos locales (correo para el propio dominio) ====
+mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain
+
+# ==== Redes de confianza (permitidas para enviar sin autenticación) ====
+mynetworks = 127.0.0.0/8, 192.168.2.0/24, 192.168.10.0/24, 2001:db8:acad:2::/64, 2001:db8:acad:10::/64
+
+# ==== Almacenamiento del correo (Maildir por usuario) ====
+home_mailbox = Maildir/
+
+# ==== Configuración TLS/SSL (cifrado del correo) ====
+smtpd_tls_cert_file = /etc/ssl/mail/mail.cert.pem
+smtpd_tls_key_file = /etc/ssl/mail/mail.key.pem
+smtpd_use_tls = yes
+smtpd_tls_security_level = may
+smtp_tls_security_level = may
+smtpd_tls_auth_only = yes
+smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
+
+# ==== Autenticación SASL usando Dovecot ====
+smtpd_sasl_type = dovecot
+smtpd_sasl_path = private/auth
+smtpd_sasl_auth_enable = yes
+
+# ==== Políticas de recepción (quién puede enviar) ====
+smtpd_recipient_restrictions =
+    permit_mynetworks,
+    permit_sasl_authenticated,
+    reject_unauth_destination
+
+# ==== Límite de tamaño de mensaje (25 MB) ====
+message_size_limit = 26214400
+
+# ==== Banner y ajustes básicos ====
+smtpd_banner = $myhostname ESMTP
+biff = no

@@ -1,0 +1,2 @@
+// --- named.conf.local for DNS64 ---
+// No zones declared here; this server is purely recursive 

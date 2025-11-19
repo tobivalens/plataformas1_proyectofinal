@@ -1,0 +1,58 @@
+$TTL 3600
+
+; Claves DNSSEC del dominio (archivos generados con dnssec-keygen)
+$INCLUDE "/etc/bind/zones/Kproyecto.tel.+013+43284.key"
+$INCLUDE "/etc/bind/zones/Kproyecto.tel.+013+63960.key"
+
+; Registro SOA (Start of Authority)
+@   IN  SOA ns1.proyecto.tel. admin.proyecto.tel. (
+        2025111202 ; serial: YYYYMMDDnn
+        86400      ; refresh (1 día)
+        7200       ; retry (2 horas)
+        604800     ; expire (1 semana)
+        3600       ; minimum (1 hora)
+)
+
+; Servidores autoritativos
+    IN  NS  ns1.proyecto.tel.
+    IN  NS  ns2.proyecto.tel.
+
+; Servidores DHCP
+dhcp4   IN  A     192.168.2.100
+dhcp4   IN  AAAA  2001:db8:acad:2::100
+
+dhcp6   IN  A     192.168.2.101
+dhcp6   IN  AAAA  2001:db8:acad:2::101
+
+; Servidores DNS
+ns1     IN  A     192.168.2.102
+ns1     IN  AAAA  2001:db8:acad:2::102
+
+ns2     IN  A     192.168.2.103
+ns2     IN  AAAA  2001:db8:acad:2::103
+
+; Servidor DNS64 / traductor NAT64
+dns64   IN  A     192.168.2.105
+dns64   IN  AAAA  2001:db8:acad:2::105
+
+; Servidores de correo
+smtp1   IN  A     192.168.2.106
+smtp1   IN  AAAA  2001:db8:acad:2::106
+
+; Otros servicios de infraestructura
+ntp     IN  A     192.168.2.108
+ntp     IN  AAAA  2001:db8:acad:2::108
+
+nas     IN  A     192.168.2.109
+nas     IN  AAAA  2001:db8:acad:2::109
+
+mon     IN  A     192.168.2.110
+mon     IN  AAAA  2001:db8:acad:2::110
+
+; Clientes internos (zona 192.168.10.0/24 y 2001:db8:acad:10::/64)
+www         IN  A   192.168.10.10
+ipv4only    IN  A   192.168.10.50
+
+; Registros de correo y políticas de envío
+proyecto.tel.   IN  MX   10 smtp1.proyecto.tel.
+proyecto.tel.   IN  TXT  "v=spf1 mx -all"

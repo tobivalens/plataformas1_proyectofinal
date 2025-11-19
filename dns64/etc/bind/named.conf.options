@@ -1,0 +1,52 @@
+options {
+    directory "/var/cache/bind";
+
+    // Recursión habilitada para clientes del laboratorio
+    recursion yes;
+    allow-recursion {
+        192.168.10.0/24;
+        2001:db8:acad:10::/64;
+        192.168.2.0/24;
+        2001:db8:acad:2::/64;
+        localhost;
+    };
+
+    // En laboratorio sin Internet, habilitamos validación DNSSEC local
+    dnssec-validation yes;
+
+    // Escuchar en las IPs adecuadas
+    listen-on port 53 {
+        127.0.0.1;
+        192.168.2.105;
+    };
+    listen-on-v6 port 53 {
+        ::1;
+        2001:db8:acad:2::105;
+    };
+
+    // Resolver las consultas hacia tus servidores autoritativos
+    forwarders {
+        // Usa las IPs de tus servidores autoritativos (pueden ser IPv6)
+        2001:db8:acad:2::102; // DNS1
+        2001:db8:acad:2::103; // DNS2
+    };
+
+    allow-query { any; };
+    auth-nxdomain no;
+
+    // --- DNS64: sintetiza AAAA cuando sólo existe A ---
+    dns64 64:FF9B::/96 {
+        clients {
+            2001:db8:acad:10::/64;
+            192.168.10.0/24;
+            2001:db8:acad:2::/64;
+            192.168.2.0/24;
+            localhost;
+            any;
+        };
+        exclude {
+            2001:db8:acad:2::/64;
+        }; // no sintetizar para servidores propios
+        break-dnssec yes; // permite síntesis en laboratorio (rompe cadena DNSSEC)
+    };
+};

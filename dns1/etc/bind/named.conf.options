@@ -1,0 +1,34 @@
+# Definición de hosts de confianza
+acl "trusted-hosts" {
+    localhost;
+    localnets;
+    192.168.2.0/24;
+    192.168.10.0/24;
+    2001:db8:acad:2::/64;
+    2001:db8:acad:10::/64;
+};
+
+options {
+    # Directorio de caché del servidor DNS
+    directory "/var/cache/bind";
+
+    # Servidor maestro
+    recursion yes;
+    allow-recursion { trusted-hosts; };
+
+    # Validación DNSSEC automática
+    dnssec-validation auto;
+
+    # Interfaces IPv4 e IPv6 donde escucha el servidor
+    listen-on port 53 { 127.0.0.1; 192.168.2.102; };
+    listen-on-v6 port 53 { ::1; 2001:db8:acad:2::102; };
+
+    # Servidores DNS a los que se reenvían consultas externas
+    forwarders { 8.8.8.8; 8.8.4.4; };
+
+    # Clientes que pueden hacer consultas a este servidor
+    allow-query { trusted-hosts; };
+
+    # Cumplimiento de RFC: no responder NXDOMAIN como autoritativo
+    auth-nxdomain no;
+};
