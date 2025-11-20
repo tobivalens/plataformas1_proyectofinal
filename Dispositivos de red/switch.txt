@@ -1,0 +1,147 @@
+SWITCHTRES#sh run
+Building configuration...
+
+Current configuration : 3269 bytes
+!
+! Last configuration change at 03:45:52 UTC Mon Mar 1 1993
+!
+version 15.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname SWITCHTRES
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$yAGz$xQNaMVG4KQ0ON7Uvlx03C.
+!
+no aaa new-model
+system mtu routing 1500
+!
+!
+!
+!
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-3003135744
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3003135744
+ revocation-check none
+ rsakeypair TP-self-signed-3003135744
+!
+!
+crypto pki certificate chain TP-self-signed-3003135744
+ certificate self-signed 01
+  3082022B 30820194 A0030201 02020101 300D0609 2A864886 F70D0101 05050030
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274
+  69666963 6174652D 33303033 31333537 3434301E 170D3933 30333031 30303030
+  35365A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 30303331
+  33353734 3430819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281
+  8100A572 E3709286 B62290B9 3EED2CC5 7DDE5D31 9BF43BE1 395F760D E4A90DF1
+  8B720DBD 3E60B78A E1FAB1C1 A28FFBD0 71EAAB33 8A34B176 28846796 0FCA6C31
+  2C32994D DB180BEC 13B6E62C 6A010350 86DD4661 6C1520EF E3018DA6 3CA0A1CE
+  0499737D 8960B38D 524AA0DB 60883FCD 6B26320B 45E3E2D7 692F86D1 6BF2D7D5
+  6BDB0203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 301F0603
+  551D2304 18301680 144C741B 59FCCF02 DE5B9715 71114DB3 EDFDF955 CF301D06
+  03551D0E 04160414 4C741B59 FCCF02DE 5B971571 114DB3ED FDF955CF 300D0609
+  2A864886 F70D0101 05050003 8181003D DB3F21CC 8BBC537F 34C56DB6 241BFE80
+  A6281857 D6A30750 B4239E23 33C86F70 891A6595 02118000 99A324A1 8223EC60
+  A57ECC00 EA0521DC 694D9A0E BEEE965F 336D6262 0CAA0853 F1DF93F2 A766DCAE
+  35FE9C33 D9C1E78E 17CE8040 51D7B679 A4B6622B 928657F1 7F538C6F B2D51210
+  3E243DDC 3D406737 E514D1A9 67FFDD
+        quit
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/1
+ switchport access vlan 20
+ switchport mode access
+!
+interface FastEthernet0/2
+ switchport access vlan 20
+ switchport mode access
+!
+interface FastEthernet0/3
+!
+interface FastEthernet0/4
+!
+interface FastEthernet0/5
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+ switchport access vlan 10
+ switchport mode access
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+ switchport trunk allowed vlan 10,20
+ switchport mode trunk
+!
+interface GigabitEthernet0/2
+ switchport access vlan 10
+ switchport mode access
+!
+interface Vlan1
+ ip address 192.168.1.2 255.255.255.0
+!
+ip http server
+ip http secure-server
+!
+no vstack
+!
+line con 0
+line vty 0 4
+ password password
+ login
+line vty 5 15
+ login
+!
+end
